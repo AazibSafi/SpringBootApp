@@ -1,8 +1,11 @@
 package com.springboot.app.model;
 
+import com.springboot.app.constant.HairColor;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +26,7 @@ public class Persona {
 
     private Integer phoneNumber;
 
-    private String hairColor;
+    @Enumerated(EnumType.STRING)
+    private HairColor hairColor;
 
 }
