@@ -1,8 +1,6 @@
 package com.springboot.app.constant;
 
-import lombok.Data;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Getter
 public enum ClientMessage {

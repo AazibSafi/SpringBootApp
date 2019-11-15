@@ -45,4 +45,9 @@ public class PersonaServiceImpl implements PersonaService {
         return conversionUtil.mapEntityToDto(persona,PersonaDto.class);
     }
 
+    @Override
+    public void deletePersonaById(Integer id) {
+        personaRepo.deleteById(id);
+    }
+
 }

@@ -26,16 +26,21 @@ public class ClientResponse<T> {
         this.statusCode = statusCode;
     }
 
+    public ClientResponse(String message, Exception exception, int statusCode) {
+        this.message = message;
+        this.statusCode = statusCode;
+        this.exception = exception;
+    }
+
     public ClientResponse(T responseData, String message) {
         this.responseData = responseData;
         this.message = message;
         this.statusCode = HttpStatus.OK.value();
     }
 
-    public ClientResponse(String message, Exception exception, int statusCode) {
+    public ClientResponse(String message) {
         this.message = message;
-        this.statusCode = statusCode;
-        this.exception = exception;
+        this.statusCode = HttpStatus.OK.value();
     }
 
 }

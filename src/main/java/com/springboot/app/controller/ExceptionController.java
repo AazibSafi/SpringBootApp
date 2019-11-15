@@ -3,6 +3,7 @@ package com.springboot.app.controller;
 import com.springboot.app.constant.ClientMessage;
 import com.springboot.app.dto.ClientResponse;
 import com.springboot.app.exception.PersonaNotFoundException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +20,7 @@ public class ExceptionController {
 
         int status;
 
-        if(ex instanceof PersonaNotFoundException) {
+        if(ex instanceof PersonaNotFoundException || ex instanceof DataAccessException) {
             status = HttpStatus.NOT_FOUND.value();
         }
         else if(ex instanceof NullPointerException || "null".equalsIgnoreCase(ex.getMessage())) {

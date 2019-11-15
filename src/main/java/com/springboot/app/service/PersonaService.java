@@ -13,4 +13,6 @@ public interface PersonaService {
 
     PersonaDto getPersonaById(Integer id) throws PersonaException;
 
+    void deletePersonaById(Integer id);
+
 }
