@@ -5,10 +5,14 @@ import com.springboot.app.dto.PersonaDto;
 import com.springboot.app.exception.PersonaException;
 import com.springboot.app.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/persona")
@@ -22,5 +26,18 @@ public class PersonaController {
         personaDto = personaService.savePersona(personaDto);
         return new ClientResponse<>(personaDto,"Data Saved");
     }
+
+    @GetMapping
+    public ClientResponse getPersonas() throws PersonaException {
+        List<PersonaDto> personaDtos = personaService.getAllPersonas();
+        return new ClientResponse<>(personaDtos,"Data Retrieved");
+    }
+
+    @GetMapping("{id}")
+    public ClientResponse getPersonaById(@PathVariable("id") Integer id) throws PersonaException {
+        PersonaDto personaDto = personaService.getPersonaById(id);
+        return new ClientResponse<>(personaDto,"Data Retrieved");
+    }
+
 
 }
