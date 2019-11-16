@@ -31,7 +31,7 @@ public class PersonaController {
     }
 
     @PutMapping("{id}")
-    public ClientResponse updatePersona(@PathVariable("id") Integer id, @RequestBody PersonaDto personaDto) throws PersonaException {
+    public ClientResponse updatePersona(@PathVariable("id") Integer id, @RequestBody @Valid PersonaDto personaDto) throws PersonaException {
         personaDto = personaService.updatePersona(id,personaDto);
         return new ClientResponse<>(personaDto,"Data Updated");
     }

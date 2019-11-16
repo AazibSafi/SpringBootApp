@@ -49,6 +49,7 @@ public class PersonaServiceImpl implements PersonaService {
         conversionUtil.mapSourceModelToDestinationModel(personaDto,persona);
         personaRepo.save(persona);
         log.info("Persona Info is updated");
+        personaDto.setId(id);
         return personaDto;
     }
 
