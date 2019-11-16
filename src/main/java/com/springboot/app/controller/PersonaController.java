@@ -24,7 +24,7 @@ public class PersonaController {
     private PersonaService personaService;
 
     @PostMapping
-    public ClientResponse savePersona(@RequestBody @Valid PersonaDto personaDto) {
+    public ClientResponse savePersona(@RequestBody @Valid PersonaDto personaDto) throws PersonaException {
         personaDto = personaService.savePersona(personaDto);
         return new ClientResponse<>(personaDto,"Data Saved");
     }

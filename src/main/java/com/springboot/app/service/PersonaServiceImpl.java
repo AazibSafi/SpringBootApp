@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -24,7 +25,11 @@ public class PersonaServiceImpl implements PersonaService {
     private ConversionUtil conversionUtil;
 
     @Override
-    public PersonaDto savePersona(PersonaDto personaDto) {
+    public PersonaDto savePersona(PersonaDto personaDto) throws PersonaException {
+        if( Objects.nonNull(personaDto.getId()) && personaRepo.findById(personaDto.getId()).isPresent() ) {
+            throw new PersonaException("Persona already exist");
+        }
+
         Persona persona = conversionUtil.mapDtoToEntity(personaDto,Persona.class);
         personaRepo.save(persona);
         log.info("Persona Info is saved with id {}",persona.getId());

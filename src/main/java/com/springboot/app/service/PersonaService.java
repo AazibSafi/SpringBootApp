@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PersonaService {
 
-    PersonaDto savePersona(PersonaDto personaDto);
+    PersonaDto savePersona(PersonaDto personaDto) throws PersonaException;
 
     List<PersonaDto> getAllPersonas() throws PersonaException;
 
