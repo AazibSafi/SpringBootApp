@@ -16,17 +16,17 @@ public class ExceptionController {
 
     @ExceptionHandler(value = {PersonaNotFoundException.class,EmptyResultDataAccessException.class})
     public ClientResponse handlePersonaNotFoundException(HttpServletRequest request, Exception ex) {
-        return new ClientResponse(ex.getMessage(), ex, HttpStatus.NOT_FOUND.value());
+        return new ClientResponse(ex,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
     public ClientResponse handleNullPointerException(HttpServletRequest request, NullPointerException ex) {
-        return new ClientResponse(ex.getMessage(), ex, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ClientResponse(ex,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = Exception.class)
     public ClientResponse handleException(HttpServletRequest request, Exception ex) {
-        return new ClientResponse(ex.getMessage(), ex, HttpStatus.BAD_REQUEST.value());
+        return new ClientResponse(ex,HttpStatus.BAD_REQUEST);
     }
 
 }
