@@ -26,6 +26,12 @@ public class ClientResponse<T> {
         setHttpStatus(httpStatus);
     }
 
+    public ClientResponse(T responseData, HttpStatus httpStatus, Exception ex) {
+        this.responseData = responseData;
+        setException(ex);
+        setHttpStatus(httpStatus);
+    }
+
     public ClientResponse(T responseData, String message) {
         this.responseData = responseData;
         this.message = message;
@@ -33,9 +39,7 @@ public class ClientResponse<T> {
     }
 
     public ClientResponse(Exception ex, HttpStatus httpStatus) {
-        this.message = ex.getMessage();
-        this.exceptionType = ex.getClass().getSimpleName();
-        this.exception = ex;
+        setException(ex);
         setHttpStatus(httpStatus);
     }
 
@@ -48,6 +52,12 @@ public class ClientResponse<T> {
         this.responseCode = httpStatus.value();
         this.responseStatus =  httpStatus.getReasonPhrase();
         this.httpStatus = httpStatus;
+    }
+
+    private void setException(Exception ex) {
+        this.message = ex.getMessage();
+        this.exceptionType = ex.getClass().getSimpleName();
+        this.exception = ex;
     }
 
 }

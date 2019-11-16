@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class PersonaController {
     private PersonaService personaService;
 
     @PostMapping
-    public ClientResponse savePersona(@RequestBody PersonaDto personaDto) {
+    public ClientResponse savePersona(@RequestBody @Valid PersonaDto personaDto) {
         personaDto = personaService.savePersona(personaDto);
         return new ClientResponse<>(personaDto,"Data Saved");
     }

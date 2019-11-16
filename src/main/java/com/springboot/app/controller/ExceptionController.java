@@ -6,11 +6,14 @@ import com.springboot.app.exception.PersonaNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @ResponseBody
@@ -22,6 +25,16 @@ public class ExceptionController {
         log.error("Data Not Found");
         log.error("Exception occurred: ",ex);
         return new ClientResponse(ex,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ClientResponse handleMethodArgumentNotValid(HttpServletRequest request, MethodArgumentNotValidException ex) {
+        log.error("Input Validation Failed");
+        log.error("Exception occurred: ",ex);
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
+        return new ClientResponse<>(errors,HttpStatus.BAD_REQUEST,ex);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
