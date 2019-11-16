@@ -9,7 +9,7 @@ public interface PersonaService {
 
     PersonaDto savePersona(PersonaDto personaDto) throws PersonaException;
 
-    PersonaDto updatePersona(PersonaDto personaDto) throws PersonaException;
+    PersonaDto updatePersona(Integer id, PersonaDto personaDto) throws PersonaException;
 
     List<PersonaDto> getAllPersonas() throws PersonaException;
 

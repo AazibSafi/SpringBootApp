@@ -30,9 +30,9 @@ public class PersonaController {
         return new ClientResponse<>(personaDto,"Data Saved");
     }
 
-    @PutMapping
-    public ClientResponse updatePersona(@RequestBody PersonaDto personaDto) throws PersonaException {
-        personaDto = personaService.updatePersona(personaDto);
+    @PutMapping("{id}")
+    public ClientResponse updatePersona(@PathVariable("id") Integer id, @RequestBody PersonaDto personaDto) throws PersonaException {
+        personaDto = personaService.updatePersona(id,personaDto);
         return new ClientResponse<>(personaDto,"Data Updated");
     }
 
