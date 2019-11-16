@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,12 @@ public class PersonaController {
         return new ClientResponse<>(personaDto,"Data Saved");
     }
 
+    @PutMapping
+    public ClientResponse updatePersona(@RequestBody PersonaDto personaDto) throws PersonaException {
+        personaDto = personaService.updatePersona(personaDto);
+        return new ClientResponse<>(personaDto,"Data Updated");
+    }
+
     @GetMapping
     public ClientResponse getPersonas() throws PersonaException {
         List<PersonaDto> personaDtos = personaService.getAllPersonas();
@@ -46,6 +53,5 @@ public class PersonaController {
         personaService.deletePersonaById(id);
         return new ClientResponse<>("Data Deleted");
     }
-
 
 }

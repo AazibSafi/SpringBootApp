@@ -1,5 +1,6 @@
 package com.springboot.app.util;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,6 +52,11 @@ public class ConversionUtil {
      */
     public <T> T mapDtoToEntity(Object dtoObject, Class<T> entityObject) {
         return modelMapper.map(dtoObject, entityObject);
+    }
+
+    public void mapSourceModelToDestinationModel(Object source,Object destination) {
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        modelMapper.map(source,destination);
     }
 
 }
