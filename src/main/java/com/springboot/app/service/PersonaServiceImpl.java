@@ -6,12 +6,14 @@ import com.springboot.app.exception.PersonaNotFoundException;
 import com.springboot.app.model.Persona;
 import com.springboot.app.repository.PersonaRepo;
 import com.springboot.app.util.ConversionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class PersonaServiceImpl implements PersonaService {
 
@@ -25,6 +27,7 @@ public class PersonaServiceImpl implements PersonaService {
     public PersonaDto savePersona(PersonaDto personaDto) {
         Persona persona = conversionUtil.mapDtoToEntity(personaDto,Persona.class);
         personaRepo.save(persona);
+        log.info("Persona Info is saved with id {}",persona.getId());
         personaDto.setId(persona.getId());
         return personaDto;
     }
@@ -35,6 +38,7 @@ public class PersonaServiceImpl implements PersonaService {
         if(CollectionUtils.isEmpty(personas)) {
             throw new PersonaNotFoundException("No data found");
         }
+        log.info("All Persona Information are retrieved");
         return conversionUtil.mapEntityListToDtoList(personas,PersonaDto.class);
     }
 
@@ -42,12 +46,14 @@ public class PersonaServiceImpl implements PersonaService {
     public PersonaDto getPersonaById(Integer id) throws PersonaException {
         Persona persona = personaRepo.findById(id)
                 .orElseThrow(() -> new PersonaNotFoundException("No data found"));
+        log.info("Persona Info with id {} is retrieved",persona.getId());
         return conversionUtil.mapEntityToDto(persona,PersonaDto.class);
     }
 
     @Override
     public void deletePersonaById(Integer id) {
         personaRepo.deleteById(id);
+        log.info("Persona Info with id {} is deleted",id);
     }
 
 }
