@@ -1,6 +1,7 @@
 package com.springboot.app.dto;
 
 import com.springboot.app.constant.HairColor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Data
+@Builder
 public class PersonaDto implements Serializable {
 
     private static final long serialVersionUID = -1937181768548448990L;
