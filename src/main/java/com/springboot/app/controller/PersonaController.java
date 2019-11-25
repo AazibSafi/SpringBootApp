@@ -7,6 +7,7 @@ import com.springboot.app.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +35,12 @@ public class PersonaController {
     public ClientResponse updatePersona(@PathVariable("id") Integer id, @RequestBody @Valid PersonaDto personaDto) throws PersonaException {
         personaDto = personaService.updatePersona(id,personaDto);
         return new ClientResponse<>(personaDto,"Data Updated");
+    }
+
+    @PatchMapping("{id}")
+    public ClientResponse updatePartialPersona(@PathVariable("id") Integer id, @RequestBody PersonaDto personaDto) throws PersonaException {
+        personaDto = personaService.updatePersona(id,personaDto);
+        return new ClientResponse<>(personaDto,"Partial Data Updated");
     }
 
     @GetMapping

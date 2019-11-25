@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 public class PersonaServiceTest extends BaseTest {
@@ -98,6 +100,7 @@ public class PersonaServiceTest extends BaseTest {
     public void testDeletePersonaById() throws PersonaException {
         doNothing().when(personaRepo).deleteById(anyInt());
         personaService.deletePersonaById(1);
+        Mockito.verify(personaRepo,times(1)).deleteById(anyInt());
     }
 
 }
