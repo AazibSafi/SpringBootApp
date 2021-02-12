@@ -50,7 +50,7 @@ public class ClientResponse<T> {
 
     private void setHttpStatus(HttpStatus httpStatus) {
         this.responseCode = httpStatus.value();
-        this.responseStatus =  httpStatus.getReasonPhrase();
+        this.responseStatus = httpStatus.getReasonPhrase();
         this.httpStatus = httpStatus;
     }
 

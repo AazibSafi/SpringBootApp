@@ -54,9 +54,9 @@ public class ConversionUtil {
         return modelMapper.map(dtoObject, entityObject);
     }
 
-    public void mapSourceModelToDestinationModel(Object source,Object destination) {
+    public void mapSourceModelToDestinationModel(Object source, Object destination) {
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-        modelMapper.map(source,destination);
+        modelMapper.map(source, destination);
     }
 
 }

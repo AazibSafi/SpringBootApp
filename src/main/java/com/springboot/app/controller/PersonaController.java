@@ -28,31 +28,31 @@ public class PersonaController {
     @PostMapping
     public ClientResponse savePersona(@RequestBody @Valid PersonaDto personaDto) throws PersonaException {
         personaDto = personaService.savePersona(personaDto);
-        return new ClientResponse<>(personaDto,"Data Saved");
+        return new ClientResponse<>(personaDto, "Data Saved");
     }
 
     @PutMapping("{id}")
     public ClientResponse updatePersona(@PathVariable("id") Integer id, @RequestBody @Valid PersonaDto personaDto) throws PersonaException {
-        personaDto = personaService.updatePersona(id,personaDto);
-        return new ClientResponse<>(personaDto,"Data Updated");
+        personaDto = personaService.updatePersona(id, personaDto);
+        return new ClientResponse<>(personaDto, "Data Updated");
     }
 
     @PatchMapping("{id}")
     public ClientResponse updatePartialPersona(@PathVariable("id") Integer id, @RequestBody PersonaDto personaDto) throws PersonaException {
-        personaDto = personaService.updatePersona(id,personaDto);
-        return new ClientResponse<>(personaDto,"Partial Data Updated");
+        personaDto = personaService.updatePersona(id, personaDto);
+        return new ClientResponse<>(personaDto, "Partial Data Updated");
     }
 
     @GetMapping
     public ClientResponse getPersonas() throws PersonaException {
         List<PersonaDto> personaDtos = personaService.getAllPersonas();
-        return new ClientResponse<>(personaDtos,"Data Retrieved");
+        return new ClientResponse<>(personaDtos, "Data Retrieved");
     }
 
     @GetMapping("{id}")
     public ClientResponse getPersonaById(@PathVariable("id") Integer id) throws PersonaException {
         PersonaDto personaDto = personaService.getPersonaById(id);
-        return new ClientResponse<>(personaDto,"Data Retrieved");
+        return new ClientResponse<>(personaDto, "Data Retrieved");
     }
 
     @DeleteMapping("{id}")

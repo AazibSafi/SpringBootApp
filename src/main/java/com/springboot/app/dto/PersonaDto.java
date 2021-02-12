@@ -19,19 +19,19 @@ public class PersonaDto implements Serializable {
 
     private Integer id;
 
-    @NotBlank(message="Name is required.")
-    @Pattern(regexp = "^[a-zA-Z]+$",message = "Only letters are allowed.")
+    @NotBlank(message = "Name is required.")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters are allowed.")
     private String name;
 
-    @NotBlank(message="Last Name is required.")
-    @Pattern(regexp = "^[a-zA-Z]+$",message = "Only letters are allowed.")
+    @NotBlank(message = "Last Name is required.")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters are allowed.")
     private String lastName;
 
-    @NotBlank(message="Address is required.")
-    @Pattern(regexp = "^[A-Za-z0-9 ]+$",message = "Only Alphanumeric and spaces are allowed.")
+    @NotBlank(message = "Address is required.")
+    @Pattern(regexp = "^[A-Za-z0-9 ]+$", message = "Only Alphanumeric and spaces are allowed.")
     private String address;
 
-    @NotNull(message="Phone Number is required.")
+    @NotNull(message = "Phone Number is required.")
     private Integer phoneNumber;
 
     @Enumerated(EnumType.STRING)

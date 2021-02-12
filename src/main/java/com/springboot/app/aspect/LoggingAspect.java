@@ -18,27 +18,31 @@ public class LoggingAspect {
     private Logger log;
 
     @Pointcut("execution(* com.springboot.app..*(..))")
-    private void allWithinResource() { }
+    private void allWithinResource() {
+    }
 
     @Pointcut("execution(* com.springboot.app.controller..*(..))")
-    private void restApi() { }
+    private void restApi() {
+    }
 
     @Pointcut("execution(* com.springboot.app.repository..*(..))")
-    private void database() { }
+    private void database() {
+    }
 
     @Pointcut("execution(* com.springboot.app.util..*(..))")
-    private void util() { }
+    private void util() {
+    }
 
     @Before("allWithinResource() && !util()")
     public void before(JoinPoint joinPoint) {
         log = LogManager.getLogger(joinPoint.getSignature().getDeclaringType());
-        log.info("<ENTRY>: {}",joinPoint.getSignature().getName());
+        log.info("<ENTRY>: {}", joinPoint.getSignature().getName());
     }
 
     @After("allWithinResource() && !util()")
     public void after(JoinPoint joinPoint) {
         log = LogManager.getLogger(joinPoint.getSignature().getDeclaringType());
-        log.info("<EXIT>: {}",joinPoint.getSignature().getName());
+        log.info("<EXIT>: {}", joinPoint.getSignature().getName());
     }
 
     @Around("restApi() || database()")
@@ -49,11 +53,11 @@ public class LoggingAspect {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
 
-        String apiName = className + "."+ methodName;
+        String apiName = className + "." + methodName;
         Object result = joinPoint.proceed();
 
         long elapsedTime = System.currentTimeMillis() - start;
-        log.info("<<<<<----- Execution Time: [{} ms] for [API: {}]",elapsedTime,apiName);
+        log.info("<<<<<----- Execution Time: [{} ms] for [API: {}]", elapsedTime, apiName);
         return result;
     }
 

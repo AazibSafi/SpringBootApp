@@ -26,27 +26,27 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaDto savePersona(PersonaDto personaDto) throws PersonaException {
-        if( Objects.nonNull(personaDto.getId()) && personaRepo.findById(personaDto.getId()).isPresent() ) {
+        if (Objects.nonNull(personaDto.getId()) && personaRepo.findById(personaDto.getId()).isPresent()) {
             throw new PersonaException("Persona already exist");
         }
 
-        Persona persona = conversionUtil.mapDtoToEntity(personaDto,Persona.class);
+        Persona persona = conversionUtil.mapDtoToEntity(personaDto, Persona.class);
         personaRepo.save(persona);
-        log.info("Persona Info is saved with id {}",persona.getId());
+        log.info("Persona Info is saved with id {}", persona.getId());
         personaDto.setId(persona.getId());
         return personaDto;
     }
 
     @Override
     public PersonaDto updatePersona(Integer id, PersonaDto personaDto) throws PersonaException {
-        if(Objects.isNull(id))  {
+        if (Objects.isNull(id)) {
             throw new PersonaException("Persona id cannot be null");
         }
 
         Persona persona = personaRepo.findById(id)
-                .orElseThrow(() -> new PersonaNotFoundException("Persona does not exist with id "+id));
+                .orElseThrow(() -> new PersonaNotFoundException("Persona does not exist with id " + id));
 
-        conversionUtil.mapSourceModelToDestinationModel(personaDto,persona);
+        conversionUtil.mapSourceModelToDestinationModel(personaDto, persona);
         personaRepo.save(persona);
         log.info("Persona Info is updated");
         personaDto.setId(id);
@@ -56,25 +56,25 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public List<PersonaDto> getAllPersonas() throws PersonaException {
         List<Persona> personas = personaRepo.findAll();
-        if(CollectionUtils.isEmpty(personas)) {
+        if (CollectionUtils.isEmpty(personas)) {
             throw new PersonaNotFoundException("No data found");
         }
         log.info("All Persona Information are retrieved");
-        return conversionUtil.mapEntityListToDtoList(personas,PersonaDto.class);
+        return conversionUtil.mapEntityListToDtoList(personas, PersonaDto.class);
     }
 
     @Override
     public PersonaDto getPersonaById(Integer id) throws PersonaException {
         Persona persona = personaRepo.findById(id)
                 .orElseThrow(() -> new PersonaNotFoundException("No data found"));
-        log.info("Persona Info with id {} is retrieved",persona.getId());
-        return conversionUtil.mapEntityToDto(persona,PersonaDto.class);
+        log.info("Persona Info with id {} is retrieved", persona.getId());
+        return conversionUtil.mapEntityToDto(persona, PersonaDto.class);
     }
 
     @Override
     public void deletePersonaById(Integer id) {
         personaRepo.deleteById(id);
-        log.info("Persona Info with id {} is deleted",id);
+        log.info("Persona Info with id {} is deleted", id);
     }
 
 }

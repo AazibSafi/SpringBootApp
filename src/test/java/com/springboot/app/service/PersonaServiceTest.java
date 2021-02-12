@@ -1,7 +1,6 @@
 package com.springboot.app.service;
 
 import com.springboot.app.BaseTest;
-import com.springboot.app.MockData;
 import com.springboot.app.dto.PersonaDto;
 import com.springboot.app.exception.PersonaException;
 import com.springboot.app.exception.PersonaNotFoundException;
@@ -38,9 +37,9 @@ public class PersonaServiceTest extends BaseTest {
     public void testSavePersona() throws PersonaException {
         when(personaRepo.findById(anyInt())).thenReturn(Optional.empty());
         when(personaRepo.save(any())).thenReturn(MockData.getPersona());
-        when(conversionUtil.mapDtoToEntity(any(PersonaDto.class),any())).thenReturn(MockData.getPersona());
+        when(conversionUtil.mapDtoToEntity(any(PersonaDto.class), any())).thenReturn(MockData.getPersona());
         PersonaDto personaDto = personaService.savePersona(MockData.getPersonaDto());
-        Assert.assertEquals(MockData.getPersona().getId(),personaDto.getId());
+        Assert.assertEquals(MockData.getPersona().getId(), personaDto.getId());
     }
 
     @Test(expected = PersonaException.class)
@@ -52,27 +51,27 @@ public class PersonaServiceTest extends BaseTest {
     @Test
     public void testUpdatePersona() throws PersonaException {
         when(personaRepo.findById(anyInt())).thenReturn(Optional.of(MockData.getPersona()));
-        doNothing().when(conversionUtil).mapSourceModelToDestinationModel(any(),any());
+        doNothing().when(conversionUtil).mapSourceModelToDestinationModel(any(), any());
         when(personaRepo.save(any())).thenReturn(MockData.getPersona());
-        PersonaDto personaDto = personaService.updatePersona(1,MockData.getPersonaDto());
+        PersonaDto personaDto = personaService.updatePersona(1, MockData.getPersonaDto());
         Assert.assertNotNull(personaDto);
     }
 
     @Test(expected = PersonaException.class)
     public void testUpdatePersonaThrowsPersonaException() throws PersonaException {
-        personaService.updatePersona(null,MockData.getPersonaDto());
+        personaService.updatePersona(null, MockData.getPersonaDto());
     }
 
     @Test(expected = PersonaNotFoundException.class)
     public void testUpdatePersonaThrowsPersonaNotFoundException() throws PersonaException {
         when(personaRepo.findById(anyInt())).thenReturn(Optional.empty());
-        personaService.updatePersona(1,MockData.getPersonaDto());
+        personaService.updatePersona(1, MockData.getPersonaDto());
     }
 
     @Test
     public void testGetAllPersonas() throws PersonaException {
         when(personaRepo.findAll()).thenReturn(Arrays.asList(MockData.getPersona()));
-        when(conversionUtil.mapEntityListToDtoList(any(),any())).thenReturn(Arrays.asList(MockData.getPersonaDto()));
+        when(conversionUtil.mapEntityListToDtoList(any(), any())).thenReturn(Arrays.asList(MockData.getPersonaDto()));
         personaService.getAllPersonas();
     }
 
@@ -85,7 +84,7 @@ public class PersonaServiceTest extends BaseTest {
     @Test
     public void testGetPersonaById() throws PersonaException {
         when(personaRepo.findById(anyInt())).thenReturn(Optional.of(MockData.getPersona()));
-        when(conversionUtil.mapEntityToDto(any(),any())).thenReturn(MockData.getPersonaDto());
+        when(conversionUtil.mapEntityToDto(any(), any())).thenReturn(MockData.getPersonaDto());
         PersonaDto personaDto = personaService.getPersonaById(1);
         Assert.assertNotNull(personaDto);
     }
@@ -100,7 +99,7 @@ public class PersonaServiceTest extends BaseTest {
     public void testDeletePersonaById() throws PersonaException {
         doNothing().when(personaRepo).deleteById(anyInt());
         personaService.deletePersonaById(1);
-        Mockito.verify(personaRepo,times(1)).deleteById(anyInt());
+        Mockito.verify(personaRepo, times(1)).deleteById(anyInt());
     }
 
 }

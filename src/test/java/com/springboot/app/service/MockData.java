@@ -1,4 +1,4 @@
-package com.springboot.app;
+package com.springboot.app.service;
 
 import com.springboot.app.constant.HairColor;
 import com.springboot.app.dto.PersonaDto;
